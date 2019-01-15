@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM ruby:2.3.4
 
 LABEL "maintainer"="Edric Chan <edric.chan.1997@gmail.com>"
 
