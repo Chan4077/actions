@@ -8,7 +8,7 @@
 # - `user`
 # Default: `project`
 # DEPRECATED: Please use GH_PAGES_BRANCH instead which allows for more configuration.
-if [[ ! -z "$GH_PAGES_TYPE" ]]; then
+if [[ -n "$GH_PAGES_TYPE" ]]; then
   echo -e "DEPRECATED: Please use the GH_PAGES_BRANCH environment variable instead of GH_PAGES_TYPE.\nThis may be removed in a future release."
   if [[ "$GH_PAGES_TYPE" = "project" ]]; then
     GH_PAGES_BRANCH="gh-pages"
@@ -64,7 +64,7 @@ git add -A
 echo -n "Files to commit:" && ls -l | wc -l
 
 git commit -m "COMMIT_MESSAGE" > /dev/null 2>&1
-git push --force $REMOTE_REPO master:$GH_PAGES_BRANCH > /dev/null 2>&1
+git push --force "$REMOTE_REPO" master:$GH_PAGES_BRANCH > /dev/null 2>&1
 
 rm -rf .git
 
