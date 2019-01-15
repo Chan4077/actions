@@ -2,6 +2,7 @@
 
 A GitHub Action that builds and deploys a Jekyll site to GitHub Pages.
 
+
 ## Environment variables
 
 Name | Description | Default | Allowed values
@@ -20,3 +21,19 @@ This script does not use any secrets.
 ## Arguments
 
 This script does not take in any arguments.
+
+## Examples
+
+Add the following code to define an action:
+
+```hcl
+workflow "Deploy Site" {
+  on = "push"
+  resolves = ["Build and Deploy Jekyll"]
+}
+
+action "Build and Deploy Jekyll" {
+  uses = "Chan4077/actions/githubPages@master"
+  secrets = ["GITHUB_TOKEN"]
+}
+```
