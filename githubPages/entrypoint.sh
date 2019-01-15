@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 # Environment variables
 
 # Specifies the type of repository
@@ -23,7 +25,7 @@ GH_PAGES_BRANCH=${GH_PAGES_BRANCH:-"gh-pages"}
 # Default: `_site`
 GH_PAGES_DIST_FOLDER=${GH_PAGES_DIST_FOLDER:-"_site"}
 # Specifies the commit message
-GH_PAGES_MESSAGE=${GH_PAGES_MESSAGE:-"Deploy commit"}
+GH_PAGES_MESSAGE=${GH_PAGES_MESSAGE:-$"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
 # Specifies the Git remote repository
 REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
 # Specifies the committer's username
@@ -32,8 +34,6 @@ COMMITTER_USERNAME=${COMMITTER_USERNAME:-$GITHUB_ACTOR}
 # Specifies the committer's email
 # Default: `${GITHUB_ACTOR}@users.noreply.github.com`
 COMMITTER_EMAIL=${COMMITTER_EMAIL:-"${GITHUB_ACTOR}@users.noreply.github.com"}
-# Specifies the commit message
-COMMIT_MESSAGE=${COMMIT_MESSAGE:-$"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
 
 echo "Configuring git..."
 git config user.name "$COMMITTER_USERNAME"
