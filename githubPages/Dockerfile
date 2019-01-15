@@ -1,4 +1,4 @@
-FROM ruby:2.3.4
+FROM ruby:2.6
 
 LABEL "maintainer"="Edric Chan <edric.chan.1997@gmail.com>"
 
