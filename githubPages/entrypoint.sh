@@ -24,8 +24,13 @@ GH_PAGES_BRANCH=${GH_PAGES_BRANCH:-"gh-pages"}
 # Specifies the folder that Jekyll builds to
 # Default: `_site`
 GH_PAGES_DIST_FOLDER=${GH_PAGES_DIST_FOLDER:-"_site"}
+
+if [[ -n "$GH_PAGES_MESSAGE" ]]; then
+  echo "DEPRECATED: Please use the GH_PAGES_COMMIT_MESSAGE environment variable instead of GH_PAGES_MESSAGE."
+  GH_PAGES_COMMIT_MESSAGE="$GH_PAGES_MESSAGE"
+fi
 # Specifies the commit message
-GH_PAGES_MESSAGE=${GH_PAGES_MESSAGE:-"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
+GH_PAGES_COMMIT_MESSAGE=${GH_PAGES_COMMIT_MESSAGE:-"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
 # Specifies the Git remote repository
 REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
 # Specifies the committer's username
@@ -34,6 +39,10 @@ COMMITTER_USERNAME=${COMMITTER_USERNAME:-$GITHUB_ACTOR}
 # Specifies the committer's email
 # Default: `${GITHUB_ACTOR}@users.noreply.github.com`
 COMMITTER_EMAIL=${COMMITTER_EMAIL:-"${GITHUB_ACTOR}@users.noreply.github.com"}
+
+# Whether to force pushing
+# Default: `true`
+GIT_FORCE=${GIT_FORCE:-true}
 
 
 echo "Installing gem bundle..."
@@ -76,7 +85,11 @@ git add -A
 
 
 git commit -m $"$GH_PAGES_MESSAGE"
-git push --force origin $GH_PAGES_BRANCH
+if [[ "$GIT_FORCE" = true || ($GIT_FORCE == 1) ]]; then
+  git push --force origin $GH_PAGES_BRANCH
+else
+  git push origin $GH_PAGES_BRANCH
+fi
 
 cd ..
 
