@@ -61,10 +61,10 @@ fi
 
 git init
 git add -A
-echo -n "Files to commit:" && ls -l | wc -l
+echo -n "Files to commit: " && ls -l | wc -l
 
-git commit -m "COMMIT_MESSAGE" > /dev/null 2>&1
-git push --force "$REMOTE_REPO" master:$GH_PAGES_BRANCH > /dev/null 2>&1
+git commit -m "$GH_PAGES_MESSAGE"
+git push --force "$REMOTE_REPO" master:$GH_PAGES_BRANCH
 
 rm -rf .git
 
