@@ -70,6 +70,13 @@ fi
 echo "Cloning repository locally..."
 git clone "$REMOTE_REPO" --branch "$GH_PAGES_BRANCH" "$GH_PAGES_DIST_FOLDER"
 
+if [[ "$OVERRIDE_GH_PAGES_BRANCH" = true || ($OVERRIDE_GH_PAGES_BRANCH = 1) ]]; then
+  echo "Emptying branch contents..."
+  cd "$GH_PAGES_DIST_FOLDER"
+  rm -rf ./*
+  cd ..
+fi
+
 bundle exec jekyll build
 echo "Successfully built the site!"
 
@@ -84,10 +91,6 @@ echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
 git config user.email "$COMMITTER_EMAIL"
 
-if [[ "$OVERRIDE_GH_PAGES_BRANCH" = true || ($OVERRIDE_GH_PAGES_BRANCH = 1) ]]; then
-  echo "Overriding branch contents with the current build..."
-  rm -rf ./*
-fi
 
 echo "Committing all files..."
 git add -A
