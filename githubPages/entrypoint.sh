@@ -25,7 +25,7 @@ GH_PAGES_BRANCH=${GH_PAGES_BRANCH:-"gh-pages"}
 # Default: `_site`
 GH_PAGES_DIST_FOLDER=${GH_PAGES_DIST_FOLDER:-"_site"}
 # Specifies the commit message
-GH_PAGES_MESSAGE=${GH_PAGES_MESSAGE:-$"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
+GH_PAGES_MESSAGE=${GH_PAGES_MESSAGE:-"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
 # Specifies the Git remote repository
 REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
 # Specifies the committer's username
@@ -63,7 +63,7 @@ git config user.email "$COMMITTER_EMAIL"
 git add -A
 echo -n "Files to commit: " && ls -l | wc -l
 
-git commit -m "$GH_PAGES_MESSAGE"
+git commit -m $"$GH_PAGES_MESSAGE"
 git push "$REMOTE_REPO" master:$GH_PAGES_BRANCH
 
 rm -rf .git
