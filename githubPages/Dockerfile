@@ -1,5 +1,10 @@
 FROM ruby:2.6
 
+# Set the default locale so as to not cause issues in Jekyll
+ENV LC_ALL C.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
 LABEL "maintainer"="Edric Chan <edric.chan.1997@gmail.com>"
 
 LABEL "com.github.actions.name"="Build and deploy GitHub page"
