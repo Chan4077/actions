@@ -14,6 +14,7 @@ Name | Description | Default | Allowed values
 `COMMITTER_USERNAME` | Specifies the committer's username | `$GITHUB_ACTOR` | A GitHub username
 `COMMITTER_EMAIL` | Specifies the committer's email | `${GITHUB_ACTOR}@users.noreply.github.com` | A valid email address
 `GIT_FORCE` | Whether to add the `--force` flag to `git push`. | `true` | A boolean (`true` or `false`), or an integer (`0` or `1`)
+`OVERRIDE_GH_PAGES_BRANCH` | Whether to override the contents of the existing branch with the contents of the build. (Should be used with `GIT_FORCE` set to `false`) | `false` | A boolean (`true` or `false`), or an integer (`0` or `1`)
 
 ## Secrets used
 

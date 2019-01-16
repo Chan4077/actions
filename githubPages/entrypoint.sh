@@ -44,6 +44,9 @@ COMMITTER_EMAIL=${COMMITTER_EMAIL:-"${GITHUB_ACTOR}@users.noreply.github.com"}
 # Default: `true`
 GIT_FORCE=${GIT_FORCE:-true}
 
+# Whether to override the contents of the branch with the current build
+OVERRIDE_GH_PAGES_BRANCH=${OVERRIDE_GH_PAGES_BRANCH:-false}
+
 
 echo "Installing gem bundle..."
 # Prevent installed dependencies messages from clogging the log
@@ -52,22 +55,24 @@ bundle install > /dev/null 2>&1
 # Check if jekyll is installed
 bundle list | grep "jekyll ("
 
-echo "Successfully installed gem bundles! Building..."
-bundle exec jekyll build
-echo "Successfully built the site!"
+echo "Successfully installed gem bundles!"
 
 echo "Pushing to GitHub Pages..."
 
 if [[ -d "$GH_PAGES_DIST_FOLDER" ]]; then
   rm -rf "$GH_PAGES_DIST_FOLDER"
   mkdir "$GH_PAGES_DIST_FOLDER"
-else
-  echo "The dist folder doesn't exist! Either you did not set GH_PAGES_DIST_FOLDER properly, or you changed the destination in the Jekyll configuration!"
-  exit 1
+# else
+  # echo "The dist folder doesn't exist! Either you did not set GH_PAGES_DIST_FOLDER properly, or you changed the destination in the Jekyll configuration!"
+  # exit 1
 fi
 
 echo "Cloning repository locally..."
 git clone "$REMOTE_REPO" --branch "$GH_PAGES_BRANCH" "$GH_PAGES_DIST_FOLDER"
+
+bundle exec jekyll build
+echo "Successfully built the site!"
+
 if [[ -d "$GH_PAGES_DIST_FOLDER" ]]; then
   cd "$GH_PAGES_DIST_FOLDER"
 else
@@ -79,6 +84,11 @@ echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
 git config user.email "$COMMITTER_EMAIL"
 
+if [[ "$OVERRIDE_GH_PAGES_BRANCH" = true || ($OVERRIDE_GH_PAGES_BRANCH = 1) ]]; then
+  echo "Overriding branch contents with the current build..."
+  rm -rf ./*
+fi
+
 echo "Committing all files..."
 git add -A
 # echo -n "Files to commit: " && ls -l | wc -l
@@ -88,6 +98,8 @@ git commit -m $"$GH_PAGES_MESSAGE"
 if [[ "$GIT_FORCE" = true || ($GIT_FORCE == 1) ]]; then
   git push --force origin $GH_PAGES_BRANCH
 else
+  echo "WARNING: Not force-pushing to the branch!"
+  echo "This may yield unexpected results!"
   git push origin $GH_PAGES_BRANCH
 fi
 
