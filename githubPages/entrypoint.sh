@@ -64,7 +64,7 @@ git add -A
 echo -n "Files to commit: " && ls -l | wc -l
 
 git commit -m "$GH_PAGES_MESSAGE"
-git push --force "$REMOTE_REPO" master:$GH_PAGES_BRANCH
+git push "$REMOTE_REPO" master:$GH_PAGES_BRANCH
 
 rm -rf .git
 
