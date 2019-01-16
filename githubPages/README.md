@@ -15,6 +15,7 @@ Name | Description | Default | Allowed values
 `COMMITTER_EMAIL` | Specifies the committer's email | `${GITHUB_ACTOR}@users.noreply.github.com` | A valid email address
 `GIT_FORCE` | Whether to add the `--force` flag to `git push`. | `true` | A boolean (`true` or `false`), or an integer (`0` or `1`)
 `OVERRIDE_GH_PAGES_BRANCH` | Whether to override the contents of the existing branch with the contents of the build. (Should be used with `GIT_FORCE` set to `false`) | `false` | A boolean (`true` or `false`), or an integer (`0` or `1`)
+`GH_PAGES_ADD_NO_JEKYLL` | Whether to add the `.nojekyll` file to the branch to indicate that it should not be compiled with Jekyll. | `true` | A boolean (`true` or `false`), or an integer `0` or `1`)
 
 ## Secrets used
 

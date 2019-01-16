@@ -47,6 +47,9 @@ GIT_FORCE=${GIT_FORCE:-true}
 # Whether to override the contents of the branch with the current build
 OVERRIDE_GH_PAGES_BRANCH=${OVERRIDE_GH_PAGES_BRANCH:-false}
 
+# Whether to add the `.nojekyll` file to indicate that the branch should not be built
+# Default: `true`
+GH_PAGES_ADD_NO_JEKYLL=${GH_PAGES_ADD_NO_JEKYLL:-true}
 
 echo "Installing gem bundle..."
 # Prevent installed dependencies messages from clogging the log
@@ -87,6 +90,9 @@ else
   exit 1
 fi
 
+if [[ "$GH_PAGES_ADD_NO_JEKYLL" = true || ($GH_PAGES_ADD_NO_JEKYLL == 1) ]]; then
+  touch .nojekyll
+fi
 echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
 git config user.email "$COMMITTER_EMAIL"
