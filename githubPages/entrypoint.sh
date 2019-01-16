@@ -94,7 +94,7 @@ git add -A
 # echo -n "Files to commit: " && ls -l | wc -l
 
 
-git commit -m $"$GH_PAGES_MESSAGE"
+git commit -m $'$GH_PAGES_MESSAGE'
 if [[ "$GIT_FORCE" = true || ($GIT_FORCE == 1) ]]; then
   git push --force origin $GH_PAGES_BRANCH
 else
