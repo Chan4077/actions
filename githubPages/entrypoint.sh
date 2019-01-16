@@ -35,9 +35,6 @@ COMMITTER_USERNAME=${COMMITTER_USERNAME:-$GITHUB_ACTOR}
 # Default: `${GITHUB_ACTOR}@users.noreply.github.com`
 COMMITTER_EMAIL=${COMMITTER_EMAIL:-"${GITHUB_ACTOR}@users.noreply.github.com"}
 
-echo "Configuring git..."
-git config user.name "$COMMITTER_USERNAME"
-git config user.email "$COMMITTER_EMAIL"
 
 echo "Installing gem bundle..."
 # Prevent installed dependencies messages from clogging the log
@@ -59,7 +56,10 @@ else
   exit 1
 fi
 
+echo "Configuring git..."
 git init
+git config user.name "$COMMITTER_USERNAME"
+git config user.email "$COMMITTER_EMAIL"
 git add -A
 echo -n "Files to commit: " && ls -l | wc -l
 
