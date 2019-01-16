@@ -50,23 +50,33 @@ echo "Successfully built the site!"
 echo "Pushing to GitHub Pages..."
 
 if [[ -d "$GH_PAGES_DIST_FOLDER" ]]; then
-  cd "$GH_PAGES_DIST_FOLDER"
+  rm -rf "$GH_PAGES_DIST_FOLDER"
+  mkdir "$GH_PAGES_DIST_FOLDER"
 else
   echo "The dist folder doesn't exist! Either you did not set GH_PAGES_DIST_FOLDER properly, or you changed the destination in the Jekyll configuration!"
   exit 1
 fi
 
-echo "Configuring git..."
-git init
+echo "Cloning repository locally..."
+git clone "$REMOTE_REPO" --branch "$GH_PAGES_BRANCH" "$GH_PAGES_DIST_FOLDER"
+if [[ -d "$GH_PAGES_DIST_FOLDER" ]]; then
+  cd "$GH_PAGES_DIST_FOLDER"
+else
+  echo "An error occurred while changing the working directory. See the log above for more info."
+  exit 1
+fi
+
+echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
 git config user.email "$COMMITTER_EMAIL"
+
+echo "Committing all files..."
 git add -A
-echo -n "Files to commit: " && ls -l | wc -l
+# echo -n "Files to commit: " && ls -l | wc -l
+
 
 git commit -m $"$GH_PAGES_MESSAGE"
-git push "$REMOTE_REPO" master:$GH_PAGES_BRANCH
-
-rm -rf .git
+git push --force origin $GH_PAGES_BRANCH
 
 cd ..
 
