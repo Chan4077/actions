@@ -91,7 +91,8 @@ else
 fi
 
 if [[ "$GH_PAGES_ADD_NO_JEKYLL" = true || ($GH_PAGES_ADD_NO_JEKYLL == 1) ]]; then
-  touch .nojekyll
+  # The .nojekyll file should have a blank line in the file's contents
+  echo "" > .nojekyll
 fi
 echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
