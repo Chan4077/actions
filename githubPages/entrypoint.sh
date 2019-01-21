@@ -30,7 +30,7 @@ if [[ -n "$GH_PAGES_MESSAGE" ]]; then
   GH_PAGES_COMMIT_MESSAGE="$GH_PAGES_MESSAGE"
 fi
 # Specifies the commit message
-GH_PAGES_COMMIT_MESSAGE=${GH_PAGES_COMMIT_MESSAGE:-"Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
+GH_PAGES_COMMIT_MESSAGE=${GH_PAGES_COMMIT_MESSAGE:-"Deploy commit $GITHUB_SHA\n\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
 # Specifies the Git remote repository
 REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
 # Specifies the committer's username
