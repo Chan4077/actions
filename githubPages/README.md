@@ -8,7 +8,7 @@ This GitHub Action requires a GitHub personal access token to deploy commits. To
 
 Name | Description | Default | Allowed values
 ---|---|---|---
-`GH_PAGES_TOKEN` | Specifies the personal access token to use for `git clone` **(required)** | No default | A valid personal access token (create one [here](https://github.com/settings/tokens/new?scopes=repo_deployment&description=Token%20for%20Deploy%20GitHub%20Pages%20GitHub%20Action) with `repo_deployment` enabled)
+`GH_PAGES_TOKEN` | Specifies the personal access token to use to request a build request **(required)** | No default | A valid personal access token (create one [here](https://github.com/settings/tokens/new?scopes=repo_deployment&description=Token%20for%20Deploy%20GitHub%20Pages%20GitHub%20Action) with `repo_deployment` enabled)
 `GH_PAGES_BRANCH` | Specifies the branch to deploy to | `gh-pages` | Any branch name
 `GH_PAGES_DIST_FOLDER` | Specifies the folder that Jekyll builds to | `_site` | A folder name
 `GH_PAGES_COMMIT_MESSAGE` | Specifies the commit message | `Deploy commit $GITHUB_SHA\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW` | A commit message
