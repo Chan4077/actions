@@ -31,7 +31,7 @@ if [[ -n "$GH_PAGES_MESSAGE" ]]; then
 fi
 # Specifies the commit message
 GH_PAGES_COMMIT_MESSAGE=${GH_PAGES_COMMIT_MESSAGE:-"Deploy commit $GITHUB_SHA\n\nAutodeployed using $GITHUB_ACTION in $GITHUB_WORKFLOW"}
-if [[ -n "$GH_PAGES_TOKEN" ]]; then
+if [[ -z "$GH_PAGES_TOKEN" ]]; then
   echo "ERROR: Please use the GH_PAGES_TOKEN to specify the token to use for git clone."
   exit 1
 fi
