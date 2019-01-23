@@ -119,7 +119,7 @@ fi
 
 echo "Requesting build request for deployed build..."
 
-curl -X POST -u $GITHUB_ACTOR:$GH_PAGES_TOKEN -H "Accept: application/vnd.github.mister-fantastic-preview+json" https://api.github.com/repos/"$GITHUB_REPOSITORY"/pages/builds
+curl -X POST -u $GITHUB_ACTOR:$GH_PAGES_TOKEN -H "Accept: application/vnd.github.mister-fantastic-preview+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds"
 
 echo "Successfully requested build request!"
 
