@@ -39,6 +39,6 @@ workflow "Deploy Site" {
 
 action "Build and Deploy Jekyll" {
   uses = "Chan4077/actions/githubPages@master"
-  secrets = ["GITHUB_TOKEN"]
+  secrets = ["GH_PAGES_TOKEN"]
 }
 ```
