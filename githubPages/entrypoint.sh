@@ -84,6 +84,10 @@ if [[ "$OVERRIDE_GH_PAGES_BRANCH" = true || ($OVERRIDE_GH_PAGES_BRANCH = 1) ]]; 
   cd ..
 fi
 
+if [[ -n "$JEKYLL_BUILD_PRE_COMMANDS" ]]; then
+  echo "Running pre commands..."
+  bash -c "$JEKYLL_BUILD_PRE_COMMANDS"
+fi
 bundle exec jekyll build
 echo "Successfully built the site!"
 
@@ -98,15 +102,22 @@ if [[ "$GH_PAGES_ADD_NO_JEKYLL" = true || ($GH_PAGES_ADD_NO_JEKYLL == 1) ]]; the
   # The .nojekyll file should have a blank line in the file's contents
   echo "" > .nojekyll
 fi
+if [[ -n "$JEKYLL_BUILD_POST_COMMANDS" ]]; then
+  echo "Running post commands..."
+  bash -c "$JEKYLL_BUILD_POST_COMMANDS"
+fi
+
+if [[ -n "$GH_PAGES_COMMIT_PRE_COMMANDS" ]]; then
+  echo "Running pre commands..."
+  bash -c "$GH_PAGES_COMMIT_PRE_COMMANDS"
+fi
 echo "Setting Git username and email..."
 git config user.name "$COMMITTER_USERNAME"
 git config user.email "$COMMITTER_EMAIL"
 
-
 echo "Committing all files..."
 git add -A
 # echo -n "Files to commit: " && ls -l | wc -l
-
 
 git commit -m "$(echo -e "$GH_PAGES_COMMIT_MESSAGE")"
 if [[ "$GIT_FORCE" = true || ($GIT_FORCE == 1) ]]; then
@@ -115,6 +126,11 @@ else
   echo "WARNING: Not force-pushing to the branch!"
   echo "This may yield unexpected results!"
   git push origin $GH_PAGES_BRANCH
+fi
+
+if [[ -n "$GH_PAGES_COMMIT_POST_COMMANDS" ]]; then
+  echo "Running post commands..."
+  bash -c "$GH_PAGES_COMMIT_POST_COMMANDS"
 fi
 
 echo "Requesting build request for deployed build..."
