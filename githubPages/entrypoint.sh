@@ -36,7 +36,8 @@ if [[ -z "$GH_PAGES_TOKEN" ]]; then
   exit 1
 fi
 # Specifies the Git remote repository
-REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
+# REMOTE_REPO=${REMOTE_REPO:-"https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
+REMOTE_REPO=${REMOTE_REPO:-"https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"}
 # Specifies the committer's username
 # Default: $GITHUB_ACTOR
 COMMITTER_USERNAME=${COMMITTER_USERNAME:-$GITHUB_ACTOR}
