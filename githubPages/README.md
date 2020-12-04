@@ -1,3 +1,11 @@
+# :warning: Notice
+
+The code for this action has since been moved to a [dedicated repository](https://github.com/EdricChan03/action-build-deploy-ghpages).
+
+Any PRs/issues regarding the action should be opened in the repository.
+
+---
+
 # Deploy to GitHub Pages
 
 A GitHub Action that builds and deploys a Jekyll site to GitHub Pages.
